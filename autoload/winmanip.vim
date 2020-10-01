@@ -82,6 +82,24 @@ function winmanip#MoveToNextTab()
   exe "b".l:cur_buf
 endfunction
 
+" delete all buffers and keep windows
+function! winmanip#DeleteAllBuffers()
+    let l:ei_ = &ei
+    let l:swin = winnr()
+    set eventignore=all
+    let l:nBufs = bufnr("$")
+    let l:i = 1
+    while(l:i <= l:nBufs)
+        if (buflisted(l:i) && bufexists(l:i) && strlen(bufname(l:i)))
+            exe "b " . l:i
+            call winmanip#Kwbd(1)
+        endif
+        let l:i = l:i + 1
+    endwhile
+    exe l:swin . "wincmd w"
+    exe 'set ei=' . l:ei_
+endfunction
+
 "delete the buffer; keep windows; create a scratch buffer if no buffers left
 function winmanip#Kwbd(kwbdStage)
   if(a:kwbdStage == 1)
@@ -97,7 +115,7 @@ function winmanip#Kwbd(kwbdStage)
     endif
     let s:kwbdBufNum = bufnr("%")
     let s:kwbdWinNum = winnr()
-    windo call winmanip#Kwbd(2)
+    tabdo windo call winmanip#Kwbd(2)
     execute s:kwbdWinNum . 'wincmd w'
     let s:buflistedLeft = 0
     let s:bufFinalJump = 0
@@ -117,11 +135,11 @@ function winmanip#Kwbd(kwbdStage)
     endwhile
     if(!s:buflistedLeft)
       if(s:bufFinalJump)
-        windo if(buflisted(winbufnr(0))) | execute "b! " . s:bufFinalJump | endif
+        tabdo windo if(buflisted(winbufnr(0))) | execute "b! " . s:bufFinalJump | endif
       else
         enew
         let l:newBuf = bufnr("%")
-        windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
+        tabdo windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
       endif
       execute s:kwbdWinNum . 'wincmd w'
     endif

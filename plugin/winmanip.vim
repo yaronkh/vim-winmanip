@@ -28,7 +28,7 @@ nnoremap <silent> <Plug>(CopyJumpBufUp) :call winmanip#MoveBufAndStay("k", 1)<CR
 
 nnoremap <silent> <Plug>(MaximizeWin) :call winmanip#ToggleMaxWins()<CR>
 
-noremap <silent> <Plug>(ClearAllWindows) :tabdo windo call winmanip#Kwbd(1)<cr>
+noremap <Plug>(ClearAllWindows) :call winmanip#DeleteAllBuffers()<cr>
 noremap <silent> <Plug>(ClearBufferList) :bufdo bd<cr>
 
 
@@ -67,6 +67,6 @@ if ! exists("g:winmanip_disable_key_mapping")
 
     nmap <Leader>z <Plug>(MaximizeWin)
 
-    noremap <silent> <Leader>B <Plug>(ClearAllWindows)
-    noremap <silent> <Leader>b <Plug>(ClearBufferList)
+    nmap <silent> <Leader>B <Plug>(ClearAllWindows)
+    nmap <silent> <Leader>b <Plug>(ClearBufferList)
 endif
