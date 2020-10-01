@@ -1,3 +1,6 @@
+"move buffer between widnows
+"rd - direction (h,j,k,l)
+"is_dup - duplicate buffer across windows.
 function winmanip#MoveBuf(dr, is_dup)
     let l:mybuf = bufnr("%")
     let l:myline = line(".")
@@ -32,6 +35,7 @@ function winmanip#MoveBuf(dr, is_dup)
     return l:otherwin
 endfunction
 
+" move buffer to window and focus on the new window
 function! winmanip#MoveBufAndStay(dr, is_dup)
     call win_gotoid(winmanip#MoveBuf(a:dr, a:is_dup))
 endfunction
@@ -100,7 +104,9 @@ function! winmanip#DeleteAllBuffers()
     exe 'set ei=' . l:ei_
 endfunction
 
-"delete the buffer; keep windows; create a scratch buffer if no buffers left
+" delete the buffer; keep windows; create a scratch buffer if no buffers left
+" this function is modification of the same function in
+" https://vim.fandom.com/wiki/Deleting_a_buffer_without_closing_the_window
 function winmanip#Kwbd(kwbdStage)
   if(a:kwbdStage == 1)
     if(&modified)
@@ -165,7 +171,7 @@ function winmanip#Kwbd(kwbdStage)
 endfunction
 "
 "toggles whether or not the current window is automatically zoomed
-function! ToggleMaxWins()
+function! winmanip#ToggleMaxWins()
   if exists('g:windowMax')
     au! maxCurrWin
     wincmd =
