@@ -64,10 +64,10 @@ To me the best way to use winmanip is by using the default key maps:
 * To duplicate buffer to an adjusted window press 5 or 6 and arrow key in the direction of the target window.
   Those commands are similar to the "move" command, with the exception that these commands duplicate buffers.
 * To move the current window to an adjusted tab press 4 and arraw key in the direction of the target tab page.
-* winmanip support window maximization mode. To toggle that mode press <Leader>z.
-* To crear all windows from data, but keep the window geometry unchanged press <Leader>B.
-* To erase all windows press <Leader>b
-* to detach the current buffer and leave the window unchanged press <Leader>b
+* winmanip support window maximization mode. To toggle that mode press \<Leader\>z.
+* To crear all windows from data, but keep the window geometry unchanged press \<Leader\>B.
+* To erase all windows press \<Leader\>b
+* to detach the current buffer and leave the window unchanged press \<Leader\>b
 
 ## customization
 winmanip allows to change the default key mapping.
