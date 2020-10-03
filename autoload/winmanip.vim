@@ -1,3 +1,20 @@
+function! s:BackupBuf()
+    let l:or = win_getid()
+    let l:bn = bufnr("%")
+    tabnew
+    exe "b " . l:bn
+    let l:ret = win_getid()
+    call win_gotoid(l:or)
+    return l:ret
+endfunction
+
+function! s:RemoveBackupBuf(backup_win)
+    let l:or = win_getid()
+    call win_gotoid(a:backup_win)
+    quit
+    call win_gotoid(l:or)
+endfunction
+
 "move buffer between widnows
 "rd - direction (h,j,k,l)
 "is_dup - duplicate buffer across windows.
@@ -25,11 +42,15 @@ function winmanip#MoveBuf(dr, is_dup)
         endif
         return winmanip#MoveBuf(a:dr, a:is_dup)
     endif
+    if !a:is_dup
+        let l:bu = s:BackupBuf()
+    endif
     exec ":b " . l:mybuf
     call cursor(l:myline, l:mycol)
     call win_gotoid(l:mywin)
     if !a:is_dup
         exec ":b " . l:otherbuf
+        call s:RemoveBackupBuf(l:bu)
         call cursor(l:otherline, l:othercol)
     endif
     return l:otherwin
