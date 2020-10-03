@@ -59,10 +59,6 @@ if ! exists("g:winmanip_disable_key_mapping")
     nmap 3<Down> <Plug>(MoveJumpBufDown)
     nmap 3<Up> <Plug>(MoveJumpBufUp)
 
-    " in quickfix window pressing 4 and arrow will open the link in a new
-    " buffer according to the arrow direction
-    autocmd! Filetype qf nnoremap <silent> <buffer> 4<Right> <C-w><Enter><C-w>L | nnoremap <silent> <buffer> 4<Left> <C-w><Enter><C-w>H | nnoremap <silent> <buffer> 4<Up> <C-w><Enter><C-w>K | nnoremap <silent> <buffer> 4<Down> <C-w><Enter><C-w>J
-
     nmap 4<Right> <Plug>(MoveWinToNextTab)
     nmap 4<Left> <Plug>(MoveWinToPrevTab)
 
